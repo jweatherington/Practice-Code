@@ -1,0 +1,33 @@
+// create array list for all the particles
+ArrayList<Particle> allMyParticles = new ArrayList<Particle>();
+BlackHole dreamhouse;
+void setup() {
+  size(800, 600);
+  // initilaize class
+  dreamhouse = new BlackHole();
+  imageMode(CENTER);
+}
+
+void draw() {
+  background(0);
+  dreamhouse.display();
+  // click mouse add barbie
+  if (mousePressed) {
+    allMyParticles.add(new Particle());
+  }
+  for (int i= allMyParticles.size ()-1; i>=0; i--) {
+    Particle currentParticle=allMyParticles.get(i);
+    currentParticle.display();
+    currentParticle.move();
+    currentParticle.update();
+    if (currentParticle.isDead()) {
+      allMyParticles.remove(i);
+    }
+    if (dreamhouse.consumes(currentParticle)) {
+      allMyParticles.remove(i);
+      dreamhouse.grow();
+    }
+  }
+}
+
+
