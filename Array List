@@ -29,6 +29,50 @@ void draw() {
     }
   }
 }
+class Particle {
+  PVector loc, vel, acc;
+  float sz;
+  PImage barbie;
+  float life, lifespan;
+  //float opacity;
+  
+
+  Particle () {
+    loc=new PVector(width/2, height*.1);
+    vel=new PVector(random(-3, 3), random(-4, -2));
+    acc=new PVector(0, .1);
+    sz=85;
+    barbie=loadImage("newbarbie.gif");
+    lifespan=random(1, 1000);
+    life=lifespan;
+  //opacity=255
+  }
+
+  void display() {
+  //method to display  &  tint(360,opacity)
+    image(barbie, loc.x, loc.y, sz*1.56, sz);
+  }
+
+  void move() {
+    //barbie moves up and out (fountain motion)
+    vel.add(acc);
+    loc.add(vel);
+  }
+
+  boolean isDead() {
+    //test if particle system still has particles
+    if (loc.y - sz/2 >height || sz<=0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  void update() {
+    life-=1;
+    sz = map(life, 0, lifespan, 0, 35);
+   //opacity= map(life,0,lifespan,0,opacity);
+  }
+}
 
 
 
